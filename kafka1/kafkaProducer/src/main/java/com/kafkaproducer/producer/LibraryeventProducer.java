@@ -25,24 +25,24 @@ public class LibraryeventProducer {
 
 
     @Autowired
-    KafkaTemplate<Integer,String> kafkaTemplate;
+    KafkaTemplate<String,String> kafkaTemplate;
 
     @Autowired
     ObjectMapper objectMapper;
 
 public void sendLibraryevent(LibraryEvent libraryEvent) throws JsonProcessingException {
-    Integer key=libraryEvent.getLibraryEventid();
+    String key=libraryEvent.getLibraryEventid().toString();
 
     String value=objectMapper.writeValueAsString(libraryEvent);
 
 
-    ProducerRecord<Integer ,String > producerrecord=buildProducerRescord(key,value,"library-events");
+//    ProducerRecord<Integer ,String > producerrecord=buildProducerRescord(key,value,"library-events");
 
 
 
 
-    CompletableFuture<SendResult<Integer, String>> resultCompletableFuture=  kafkaTemplate.send(producerrecord);
-//    CompletableFuture<SendResult<Integer, String>> resultCompletableFuture=  kafkaTemplate.send("library-events",key, value);
+//    CompletableFuture<SendResult<Integer, String>> resultCompletableFuture=  kafkaTemplate.send(producerrecord);
+    CompletableFuture<SendResult<String, String>> resultCompletableFuture=  kafkaTemplate.send("library-events",key, value);
 
     resultCompletableFuture.whenComplete((result, ex) -> {
         if (ex == null) {
