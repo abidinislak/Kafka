@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/kasifpro")
+
 @RequiredArgsConstructor
 public class producerController {
 
@@ -22,7 +22,7 @@ public class producerController {
     private final KafkaTemplate<String, KMessage> kafkaTemplate;
 
 
-    @PostMapping
+    @PostMapping ("/kasifpro")
     public void sendMEssage(@RequestBody KMessage kMessage)
     {
         kafkaTemplate.send(topic, UUID.randomUUID().toString(),kMessage);

@@ -14,10 +14,11 @@ public class KafkaListenerService {
             topics = "kasif_topic",
             groupId = "kasif-group"
     )
-    public void listen(@Payload KMessage message) {
+    public void olay(@Payload KMessage message) {
         log.info("Message received.. MessageID : {} Message: {} Date : {}",
                 message.getId(),
                 message.getMessage(),
                 message.getMessageDate());
     }
+
 }
